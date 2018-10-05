@@ -1,35 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package csekosys;
 
+import csekosys.sum.AdbDevices;
+import csekosys.sum.Device;
+import csekosys.sum.Status;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 
-/**
- *
- * @author szerviz2
- */
 public class RootLayoutController implements Initializable {
+
+    private Device device;
+    private String adbImsi;
     
     @FXML
-    private Label label;
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
-    
+    private TextArea deviceBacicDatasArea;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+        adbImsi = AdbDevices.getDevices().get(0).getAdbImsi();
+        device = new Device(adbImsi);
+
+
+        for (int i = 0; i < Status.getDeviceBasicDatas().size(); i++) {
+            deviceBacicDatasArea.appendText(Status.getDeviceBasicDatas().get(i) + "\n");
+
+        }
+
+    }
+
 }

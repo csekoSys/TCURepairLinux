@@ -11,7 +11,7 @@ public class TestMain {
     public static void main(String[] args) {
         deviceTest();
         //       terminalTest();
- //       xmlReaderTest();
+        //       xmlReaderTest();
         statusTest();
     }
 
@@ -33,7 +33,7 @@ public class TestMain {
         System.out.println("isRepoNavBlocked: " + device.isRepoNavBlocked());
         System.out.println("isRepoOpened: " + device.isRepoOpened());
         System.out.println("isRepoRegistered: " + device.isRepoRegistered());
-    
+
     }
 
     public static void terminalTest() {
@@ -48,11 +48,17 @@ public class TestMain {
         XmlReader xml = new XmlReader(device, Constants.AEEAPP_SHARED_PREFS_PATH, "repository.xml");
         System.out.println("találat: " + xml.searchXmlAttributum("NumberOfLogfileWithLastClose"));
     }
-    
+
     public static void statusTest() {
         ArrayList<String> infoStatusList = (ArrayList<String>) Status.getInfoStatus();
-        
+        ArrayList<String> deviceBasicDataList = (ArrayList<String>) Status.getDeviceBasicDatas();
+
+        System.out.println("InfoStatus");
         for (String string : infoStatusList) {
+            System.out.println(string);
+        }
+        System.out.println("Device basec info");
+        for (String string : deviceBasicDataList) {
             System.out.println(string);
         }
     }

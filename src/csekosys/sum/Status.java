@@ -16,8 +16,12 @@ public class Status {
 //    }
     
     
-    public static void setDeviceBasicDatas(String text) {
-        deviceBasicDataList.add(text);
+    public static void setDeviceBasicDatas(String name, String value) {
+        deviceBasicDataList.add(name + ": " + value);
+    }
+    
+     public static List<String> getDeviceBasicDatas() {
+        return deviceBasicDataList;
     }
 
     public static void setErrorStatus(String text) {

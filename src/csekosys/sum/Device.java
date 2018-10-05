@@ -67,6 +67,7 @@ public class Device {
             Status.setInfoStatus("Version DPF - Field nem létezik");
             result = "Nincs adat";
         }
+        Status.setDeviceBasicDatas("Verzió", result);
         return result;
     }
 
@@ -77,19 +78,21 @@ public class Device {
             Status.setInfoStatus("Type cashRegisterType - Field nem létezik");
             result = "Nincs adat";
         }
+        Status.setDeviceBasicDatas("Típus", result);
         return result;
     }
 
     public String getRepoTcuStatus() {
         String result;
         result = xmlRepo.searchXmlAttributum("TCUStatus");
+        Status.setDeviceBasicDatas("AEE státusz", result);
         return result;
     }
 
     public String getRepoImei() {
         String result;
         result = xmlRepo.searchXmlAttributum("Imei");
-         if (result == "") {
+        if (result == "") {
             Status.setInfoStatus("Repo Imei - Field nem létezik");
             result = "Nincs adat";
         }
@@ -103,14 +106,15 @@ public class Device {
         result = Boolean.parseBoolean(result_tmp);
         return result;
     }
-    
+
     public String getRepoLearningMode() {
         String result;
         result = xmlRepo.searchXmlAttributum("LearningMode1");
-         if (result == "") {
+        if (result == "") {
             Status.setInfoStatus("Repo LearningMode - Field nem létezik");
             result = "Nincs adat";
         }
+        Status.setDeviceBasicDatas("Tanulómód", result);
         return result;
     }
 
@@ -141,12 +145,18 @@ public class Device {
     public String getRepoImsi() {
         String result;
         result = xmlRepo.searchXmlAttributum("Imsi");
+        Status.setDeviceBasicDatas("IMSI",result);
         return result;
     }
 
     public String getRepoAp() {
         String result;
-        result = xmlRepo.searchXmlAttributum("Ap");
+        result = xmlRepo.searchXmlAttributum("Ap1");
+        if (result == "") {
+            Status.setInfoStatus("Repo LearningMode - Field nem létezik");
+            result = "Nincs adat";
+        }
+        Status.setDeviceBasicDatas("AP", result);
         return result;
     }
 
@@ -171,6 +181,7 @@ public class Device {
         String result_tmp;
         result_tmp = xmlRepo.searchXmlAttributum("Opened");
         result = Boolean.parseBoolean(result_tmp);
+        Status.setDeviceBasicDatas("Nap", result_tmp);
         return result;
     }
 
