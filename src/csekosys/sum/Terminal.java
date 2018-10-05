@@ -25,7 +25,7 @@ public class Terminal {
     public static String execSingle(String command) {
         String result = "";
         BufferedReader reader = getBufferedReader(command);
-        String line = "";
+        String line;
         try {
             while ((line = reader.readLine()) != null) {
                 result = line;
@@ -39,7 +39,7 @@ public class Terminal {
     public static List<String> execSingleStringList(String command) {
         List<String> result = new ArrayList<>();
         BufferedReader reader = getBufferedReader(command);
-        String line = "";
+        String line;
         try {
             while ((line = reader.readLine()) != null) {
                 result.add(line);
@@ -50,18 +50,5 @@ public class Terminal {
         return result;
     }
 
-    public static List<Integer> execSingleIntegerList(String command) {
-        List<Integer> result = new ArrayList<>();
-        BufferedReader reader = getBufferedReader(command);
-        String line = "";
-        try {
-            while ((line = reader.readLine()) != null) {
-                result.add(Integer.parseInt(line));
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Terminal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return result;
-    }
 
 }

@@ -9,18 +9,15 @@ public class Status {
     private static List<String> errorStatusList = new ArrayList<>();
     private static List<String> infoStatusList = new ArrayList<>();
 
-//    public Status() {
-//     deviceBasicDataList = new ArrayList<>();
-//    errorStatusList = new ArrayList<>();
-//    infoStatusList = new ArrayList<>();       
-//    }
-    
-    
+    public Status() {
+
+    }
+
     public static void setDeviceBasicDatas(String name, String value) {
         deviceBasicDataList.add(name + ": " + value);
     }
-    
-     public static List<String> getDeviceBasicDatas() {
+
+    public static List<String> getDeviceBasicDatas() {
         return deviceBasicDataList;
     }
 

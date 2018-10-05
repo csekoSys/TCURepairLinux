@@ -7,6 +7,7 @@ public class TestMain {
 
     static String adbImsi = AdbDevices.getDevices().get(0).getAdbImsi();
     static Device device = new Device(adbImsi);
+    
 
     public static void main(String[] args) {
         deviceTest();
@@ -62,4 +63,5 @@ public class TestMain {
             System.out.println(string);
         }
     }
+
 }
