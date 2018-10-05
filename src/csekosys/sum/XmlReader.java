@@ -20,7 +20,7 @@ public class XmlReader {
      * @return
      */
     public String searchXmlAttributum(String searchText) {
-        String result = "";
+        String result;
 
         result = Terminal.execSingle(device.getAdbCommand(" cat " + path + filename + " |grep -i \\\"" + searchText + "\\\""));
 
@@ -40,7 +40,7 @@ public class XmlReader {
 
             return result;
         } else {
-            return result = "Nincs adat";
+            return result = "";
         }
     }
 
@@ -48,11 +48,10 @@ public class XmlReader {
      * Megkeresi az adott documentumban az a sort ahol megtalálhat az adott
      * szöveg
      *
-     * @param searchText
      * @return
      */
     public String searchXmlField(String searchField) {
-        String result = "";
+        String result;
 
         result = Terminal.execSingle(device.getAdbCommand(" cat " + path + filename + " |grep -i " + searchField));
 
@@ -63,7 +62,7 @@ public class XmlReader {
             result = parts2[0];
             return result;
         } else {
-            return result = "Nincs adat";
+            return result = "";
         }
     }
 

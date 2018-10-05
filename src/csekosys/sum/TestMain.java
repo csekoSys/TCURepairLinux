@@ -1,5 +1,6 @@
 package csekosys.sum;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TestMain {
@@ -10,27 +11,28 @@ public class TestMain {
     public static void main(String[] args) {
         deviceTest();
         //       terminalTest();
-//        xmlReaderTest();
+ //       xmlReaderTest();
+        statusTest();
     }
 
     public static void deviceTest() {
-        System.err.println("getCashregVersion: " + device.getCashregVersion());
-        System.err.println("getCashregImsi: " + device.getCashregImsi());
-        System.err.println("getCashregAp: " + device.getCashregAp());
-        System.err.println("getVersionVersion: " + device.getVersionVersion());
-        System.err.println("getTypeType: " + device.getTypeType());
-        System.err.println("repoTcuStatus: " + device.getRepoTcuStatus());
-        System.err.println("getRepoImei: " + device.getRepoImei());
-        System.err.println("isRepoLearningMode: " + device.isRepoLearningMode());
-        System.err.println("getRepoCashregisterOpenCounter: " + device.getRepoCashregisterOpenCounter());
-        System.err.println("getRepoReceiptCounter: " + device.getRepoReceiptCounter());
-        System.err.println("getRepoCashregisterCloseCounter: " + device.getRepoCashregisterCloseCounter());
-        System.err.println("getRepoImsi: " + device.getRepoImsi());
-        System.err.println("getRepoAp: " + device.getRepoAp());
-        System.err.println("getRepoNumberOfLogfileWihLastClose: " + device.getRepoNumberOfLogfileWihLastClose());
-        System.err.println("isRepoNavBlocked: " + device.isRepoNavBlocked());
-        System.err.println("isRepoOpened: " + device.isRepoOpened());
-        System.err.println("isRepoRegistered: " + device.isRepoRegistered());
+        System.out.println("getCashregVersion: " + device.getCashregVersion());
+        System.out.println("getCashregImsi: " + device.getCashregImsi());
+        System.out.println("getCashregAp: " + device.getCashregAp());
+        System.out.println("getVersionVersion: " + device.getVersionVersion());
+        System.out.println("getTypeType: " + device.getTypeType());
+        System.out.println("repoTcuStatus: " + device.getRepoTcuStatus());
+        System.out.println("getRepoImei: " + device.getRepoImei());
+        System.out.println("getRepoLearningMode: " + device.getRepoLearningMode());
+        System.out.println("getRepoCashregisterOpenCounter: " + device.getRepoCashregisterOpenCounter());
+        System.out.println("getRepoReceiptCounter: " + device.getRepoReceiptCounter());
+        System.out.println("getRepoCashregisterCloseCounter: " + device.getRepoCashregisterCloseCounter());
+        System.out.println("getRepoImsi: " + device.getRepoImsi());
+        System.out.println("getRepoAp: " + device.getRepoAp());
+        System.out.println("getRepoNumberOfLogfileWihLastClose: " + device.getRepoNumberOfLogfileWihLastClose());
+        System.out.println("isRepoNavBlocked: " + device.isRepoNavBlocked());
+        System.out.println("isRepoOpened: " + device.isRepoOpened());
+        System.out.println("isRepoRegistered: " + device.isRepoRegistered());
     
     }
 
@@ -43,7 +45,15 @@ public class TestMain {
     }
 
     public static void xmlReaderTest() {
-        XmlReader xml = new XmlReader(device, Constants.TEKI_PATH, "version.xml");
-        System.out.println("találat: " + xml.searchXmlField("DPF"));
+        XmlReader xml = new XmlReader(device, Constants.AEEAPP_SHARED_PREFS_PATH, "repository.xml");
+        System.out.println("találat: " + xml.searchXmlAttributum("NumberOfLogfileWithLastClose"));
+    }
+    
+    public static void statusTest() {
+        ArrayList<String> infoStatusList = (ArrayList<String>) Status.getInfoStatus();
+        
+        for (String string : infoStatusList) {
+            System.out.println(string);
+        }
     }
 }
