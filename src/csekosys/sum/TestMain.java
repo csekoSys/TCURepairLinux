@@ -54,11 +54,11 @@ public class TestMain {
         ArrayList<String> infoStatusList = (ArrayList<String>) Status.getInfoStatus();
         ArrayList<String> deviceBasicDataList = (ArrayList<String>) Status.getDeviceBasicDatas();
 
-        System.out.println("InfoStatus");
+        System.out.println("\nInfoStatus");
         for (String string : infoStatusList) {
             System.out.println(string);
         }
-        System.out.println("Device basec info");
+        System.out.println("\nDevice basec info");
         for (String string : deviceBasicDataList) {
             System.out.println(string);
         }

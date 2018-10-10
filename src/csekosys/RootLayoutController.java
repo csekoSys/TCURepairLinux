@@ -2,6 +2,7 @@ package csekosys;
 
 import csekosys.sum.AdbDevices;
 import csekosys.sum.Device;
+import csekosys.ui.device.DevicePaneController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -13,8 +14,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
@@ -22,60 +23,83 @@ import javafx.scene.layout.VBox;
 
 public class RootLayoutController implements Initializable {
 
-    private List<Device> devices;
-    private String adbImsi;
-    private Button deviceButton;
-    private Tab deviceTab;
+    public List<Device> devices;
+    public String adbImsi = "";
+
+    public Tab deviceTab;
     private int cableNumber;
-    BorderPane devicePane;
+//   public BorderPane devicePane;
+    public Button deviceButton;
+    public Button[] buttons;
 
     @FXML
     private Button searchDevicesButton;
     @FXML
     private TabPane rootTabPane;
     @FXML
-    private VBox devicesVBox;
+    public VBox devicesVBox;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        System.out.println("csekosys.RootLayoutController.initialize()");
+        initLayout();
     }
 
     @FXML
-    private void handleSearchDevices(ActionEvent event) {
+    public void handleSearchDevices(ActionEvent event) {
+        System.out.println("csekosys.RootLayoutController.handleSearchDevices()");
         devicesVBox.getChildren().clear();
-        devicesVBox.setSpacing(5);
-        devices = AdbDevices.getDevices();
+
+        devices = AdbDevices.getDevices(); //eszközök listája
+        for (Device d : devices) {
+            System.out.println(" Device: " + d.getAdbImsi());
+        }
+        buttons = new Button[devices.size()];
 
         for (int i = 0; i < devices.size(); i++) {
             adbImsi = devices.get(i).getAdbImsi();
-
-            deviceButton = new Button();
-            deviceButton.setText(adbImsi);
+            deviceButton = new Button(adbImsi);
+            buttons[i] = deviceButton;
+            devicesVBox.getChildren().add(buttons[i]);
             deviceButton.setMinWidth(devicesVBox.getPrefWidth());
             deviceButton.setMinHeight(30);
 
-            devicesVBox.getChildren().add(deviceButton);
+        }
 
-            //FIGYELMEZTETNI, HA MÁR NINCS CSATLAKOZTATVA AZ ESZKÖZ
-            deviceButton.setOnAction(new EventHandler<ActionEvent>() {
+        //FIGYELMEZTETNI, HA MÁR NINCS CSATLAKOZTATVA AZ ESZKÖZ
+        for (Button button : buttons) {
+            button.setOnAction(new EventHandler<ActionEvent>() {
+
+                String imsi = button.getText();
+
                 @Override
-                public void handle(ActionEvent event) {
+                public void handle(ActionEvent event1) {
+                    System.out.println("\n.handle() DEVICE BOTTON press: " + imsi);
+
                     try {
-                        devicePane = FXMLLoader.load(getClass().getResource("ui/device/DevicePane.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("ui/device/DevicePane.fxml"));
+                        DevicePaneController controller = new DevicePaneController(imsi);
+                        loader.setController(controller);
+                        BorderPane devicePane = loader.load();
+
+                        deviceTab = new Tab(imsi);
+                        deviceTab.setContent(devicePane);
+                        rootTabPane.getTabs().add(deviceTab);
+
                     } catch (IOException ex) {
+                        System.out.println("DevicePane.fxml megnyitása nem sikerül: " + ex);
                         Logger.getLogger(RootLayoutController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-  //                  devicePane.setMinWidth(rootTabPane.getPrefWidth());
- //                   devicePane.setMinHeight(rootTabPane.getPrefHeight());
 
-                    deviceTab = new Tab(adbImsi);
-                    deviceTab.setContent(devicePane);
-                    rootTabPane.getTabs().add(deviceTab);
                 }
-            });
-
+            }
+            );
         }
+    }
+
+    private void initLayout() {
+        devicesVBox.setSpacing(5);
+
     }
 
 }

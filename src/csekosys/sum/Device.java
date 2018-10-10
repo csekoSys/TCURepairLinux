@@ -34,7 +34,6 @@ public class Device {
         result = xmlCasgreg.searchXmlAttributum("SOFTWARE_VERSION_STRING");
 
         if (result == "") {
-            Status.setInfoStatus("SOFTWARE_VERSION_STRING - Field nem létezik");
             result = "Nincs adat";
         }
         return result;
@@ -44,7 +43,6 @@ public class Device {
         String result;
         result = xmlCasgreg.searchXmlAttributum("Imsi");
         if (result == "") {
-            Status.setInfoStatus("CashregImsi - Field nem létezik");
             result = "Nincs adat";
         }
         return result;
@@ -54,7 +52,6 @@ public class Device {
         String result;
         result = xmlCasgreg.searchXmlAttributum("AP_STRING");
         if (result == "") {
-            Status.setInfoStatus("Cashreg AP_STRING - Field nem létezik");
             result = "Nincs adat";
         }
         return result;
@@ -64,10 +61,8 @@ public class Device {
         String result;
         result = xmlVersion.searchXmlField("DPF");
         if (result == "") {
-            Status.setInfoStatus("Version DPF - Field nem létezik");
             result = "Nincs adat";
         }
-        Status.setDeviceBasicDatas("Verzió", result);
         return result;
     }
 
@@ -75,17 +70,14 @@ public class Device {
         String result;
         result = xmlType.searchXmlField("cashRegisterType");
         if (result == "") {
-            Status.setInfoStatus("Type cashRegisterType - Field nem létezik");
             result = "Nincs adat";
         }
-        Status.setDeviceBasicDatas("Típus", result);
         return result;
     }
 
     public String getRepoTcuStatus() {
         String result;
         result = xmlRepo.searchXmlAttributum("TCUStatus");
-        Status.setDeviceBasicDatas("AEE státusz", result);
         return result;
     }
 
@@ -93,7 +85,6 @@ public class Device {
         String result;
         result = xmlRepo.searchXmlAttributum("Imei");
         if (result == "") {
-            Status.setInfoStatus("Repo Imei - Field nem létezik");
             result = "Nincs adat";
         }
         return result;
@@ -111,17 +102,14 @@ public class Device {
         String result;
         result = xmlRepo.searchXmlAttributum("LearningMode1");
         if (result == "") {
-            Status.setInfoStatus("Repo LearningMode - Field nem létezik");
             result = "Nincs adat";
         }
-        Status.setDeviceBasicDatas("Tanulómód", result);
         return result;
     }
 
     public int getRepoCashregisterOpenCounter() {
         int result;
-        String result_tmp;
-        result_tmp = xmlRepo.searchXmlAttributum("CashRegisterOpenCounter");
+        String result_tmp = null;
         result = Integer.parseInt(result_tmp);
         return result;
     }
@@ -151,9 +139,8 @@ public class Device {
 
     public String getRepoAp() {
         String result;
-        result = xmlRepo.searchXmlAttributum("Ap1");
+        result = xmlRepo.searchXmlAttributum("Ap");
         if (result == "") {
-            Status.setInfoStatus("Repo LearningMode - Field nem létezik");
             result = "Nincs adat";
         }
         Status.setDeviceBasicDatas("AP", result);

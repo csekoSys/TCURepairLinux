@@ -1,29 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <right>
-      <HBox prefHeight="100.0" prefWidth="450.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <TextArea prefHeight="200.0" prefWidth="200.0" />
-               </children>
-            </VBox>
-            <VBox prefHeight="700.0" prefWidth="248.0">
-               <children>
-                  <TextArea />
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-   </right>
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <TextArea prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <SplitPane dividerPositions="0.29797979797979796, 0.5" minHeight="750.0" minWidth="1000.0" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <VBox layoutX="154.0" layoutY="214.0" prefHeight="748.0" prefWidth="384.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox prefHeight="200.0">
+                           <children>
+                              <TextArea prefHeight="200.0" prefWidth="550.0" promptText="navlog.txt">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </TextArea>
+                              <TextArea prefHeight="250.0" promptText="display">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </TextArea>
+                           </children>
+                        </HBox>
+                        <TabPane fx:id="deviceTabPane" tabClosingPolicy="ALL_TABS" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane maxWidth="250.0" minWidth="200.0">
+               <children>
+                  <VBox layoutX="84.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleLogcatOpen" prefWidth="230.0" text="logcat">
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefWidth="230.0" text="repository.xml">
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefWidth="230.0" text="Terminál">
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefWidth="230.0" text="PPAF">
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefWidth="230.0" text="Újratesztel">
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefWidth="230.0" text="reset.sh">
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefWidth="230.0" text="Rendszerfájlok mentése">
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="102.0" prefWidth="230.0" text="SD mentés">
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children></AnchorPane>
+            <AnchorPane maxWidth="-Infinity" minWidth="200.0" prefWidth="300.0">
+               <children>
+                  <VBox layoutX="34.0" layoutY="194.0" prefHeight="748.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <VBox prefHeight="133.0" prefWidth="290.0">
+                           <children>
+                              <Label text="Alap adatok">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <GridPane>
+                                 <children>
+                                    <Label text="Típus:" />
+                                    <Label text="IMSI:" GridPane.rowIndex="1" />
+                                    <Label prefHeight="13.0" prefWidth="36.0" text="AP:" GridPane.rowIndex="2" />
+                                    <Label prefHeight="15.0" prefWidth="72.0" text="Verzió:" GridPane.rowIndex="3" />
+                                    <Label prefHeight="15.0" prefWidth="130.0" text="TCU Státusz:" GridPane.rowIndex="4" />
+                                    <Label prefHeight="15.0" prefWidth="74.0" text="Kapcsolat:" GridPane.rowIndex="5" />
+                                    <Label fx:id="typeLb" GridPane.columnIndex="1" />
+                                    <Label fx:id="imsiLb" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label fx:id="apLb" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="versionLb" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label fx:id="tcuStatusLb" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label fx:id="connectLb" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Label text="Nap:" GridPane.rowIndex="6" />
+                                    <Label fx:id="openedLb" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                 </children>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="97.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="193.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="15.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="15.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="15.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="15.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="15.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="15.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="15.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" top="10.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="Hibák">
+                                 <VBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextArea prefHeight="200.0" prefWidth="200.0" />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" top="10.0" />
+                           </VBox.margin>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
    </center>
 </BorderPane>

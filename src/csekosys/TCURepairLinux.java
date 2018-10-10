@@ -15,6 +15,7 @@ public class TCURepairLinux extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("RootLayout.fxml"));        
         Scene scene = new Scene(root);       
         stage.setScene(scene);
+        stage.setTitle("TCU Repair Linux");
         stage.show();
     }
 
