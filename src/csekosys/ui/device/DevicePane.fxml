@@ -109,6 +109,8 @@
                                     <Label fx:id="connectLb" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                     <Label text="Nap:" GridPane.rowIndex="6" />
                                     <Label fx:id="openedLb" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <Label text="Logmappák:" GridPane.rowIndex="7" />
+                                    <Label fx:id="logFoldersLb" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                  </children>
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="97.0" />
@@ -122,6 +124,7 @@
                                     <RowConstraints minHeight="15.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="15.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="15.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                               </GridPane>
                            </children>

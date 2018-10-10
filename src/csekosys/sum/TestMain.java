@@ -10,10 +10,11 @@ public class TestMain {
     
 
     public static void main(String[] args) {
-        deviceTest();
+//        deviceTest();
         //       terminalTest();
         //       xmlReaderTest();
-        statusTest();
+//        statusTest();
+        logfilesTest();
     }
 
     public static void deviceTest() {
@@ -61,6 +62,15 @@ public class TestMain {
         System.out.println("\nDevice basec info");
         for (String string : deviceBasicDataList) {
             System.out.println(string);
+        }
+    }
+    
+    public static void logfilesTest() {
+        LogfilesProcessing lfp = new LogfilesProcessing();
+        ArrayList<Integer> list = (ArrayList<Integer>) lfp.getLogFoldersList(device);
+        
+        for (Integer i : list) {
+            System.out.println(i);
         }
     }
 

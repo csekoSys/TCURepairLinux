@@ -1,5 +1,7 @@
 package csekosys.sum;
 
+import java.util.ArrayList;
+
 public class Device {
 
     private String adbImsi;
@@ -7,6 +9,7 @@ public class Device {
     private XmlReader xmlCasgreg;
     private XmlReader xmlVersion;
     private XmlReader xmlType;
+    private ArrayList<Integer> logfileFoldersList;
 
     Device() {
     }
@@ -17,6 +20,7 @@ public class Device {
         this.xmlCasgreg = new XmlReader(this, Constants.CASHREG_SHARED_PREFS_PATH, "com.tekinvest.novatek.cashregister_preferences.xml");
         this.xmlVersion = new XmlReader(this, Constants.TEKI_PATH, "version.xml");
         this.xmlType = new XmlReader(this, Constants.TEKI_PATH, "type.xml");
+        this.logfileFoldersList = (ArrayList<Integer>) LogfilesProcessing.getLogFoldersList(this);
 
     }
 
@@ -191,12 +195,12 @@ public class Device {
     }
 
     public int getLogfilesFirstLogfolder() {
-        int result = 0;
+        int result = logfileFoldersList.get(0);
         return result;
     }
 
     public int getLogfilesEndLogfolder() {
-        int result = 0;
+        int result = logfileFoldersList.get(logfileFoldersList.size()-1);
         return result;
     }
 

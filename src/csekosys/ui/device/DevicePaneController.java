@@ -33,6 +33,8 @@ public class DevicePaneController implements Initializable {
     @FXML
     private Label openedLb;
     @FXML
+    private Label logFoldersLb;
+    @FXML
     private TabPane deviceTabPane;
 
     public DevicePaneController(String imsi) {
@@ -58,6 +60,7 @@ public class DevicePaneController implements Initializable {
         tcuStatusLb.setText(device.getRepoTcuStatus());
         connectLb.setText("még megcsinálni");
         openedLb.setText("" + device.isRepoOpened());
+        logFoldersLb.setText(device.getLogfilesFirstLogfolder() + " - " + device.getLogfilesEndLogfolder());
     }
 
     @FXML
@@ -65,6 +68,5 @@ public class DevicePaneController implements Initializable {
         Tab tab = new Tab("logcat");
         deviceTabPane.getTabs().add(tab);
     }
-
 
 }
