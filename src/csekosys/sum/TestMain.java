@@ -66,12 +66,21 @@ public class TestMain {
     }
     
     public static void logfilesTest() {
-        LogfilesProcessing lfp = new LogfilesProcessing();
-        ArrayList<Integer> list = (ArrayList<Integer>) lfp.getLogFoldersList(device);
+        ArrayList<Integer> list = (ArrayList<Integer>) LogfilesProcessing.getLogFoldersList(device);
+        ArrayList<Logfile> logfileList = (ArrayList<Logfile>) LogfilesProcessing.getLogfilesList(device);
+        ArrayList<Receipt> receipList = (ArrayList<Receipt>) LogfilesProcessing.getReceiptsFromLogfilesList(device);
         
-        for (Integer i : list) {
-            System.out.println(i);
+        for (int i = 0; i < receipList.size(); i++) {
+            System.out.println(receipList.get(i).getNSZ());
         }
+ 
+ //       for (int i = 0; i < logfileList.size(); i++) {
+ //           System.out.println(logfileList.get(i).getLogfileName());
+ //       }
+      
+//        for (Integer i : list) {
+//            System.out.println(i);
+//        }
     }
 
 }

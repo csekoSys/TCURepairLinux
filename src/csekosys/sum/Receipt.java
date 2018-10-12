@@ -1,6 +1,6 @@
 package csekosys.sum;
 
-public class Reciept {
+public class Receipt implements Comparable<Receipt> {
 
     private String NSZ; 
     private int ZSZ;
@@ -18,7 +18,7 @@ public class Reciept {
      * @param CNC
      * @param CTS 
      */
-    public Reciept(String NSZ, int ZSZ, int NYS, int SUM, boolean CNC, String CTS) {
+    public Receipt(String NSZ, int ZSZ, int NYS, int SUM, boolean CNC, String CTS) {
         this.NSZ = NSZ;
         this.ZSZ = ZSZ;
         this.NYS = NYS;
@@ -73,6 +73,12 @@ public class Reciept {
 
     public void setCTS(String CTS) {
         this.CTS = CTS;
+    }
+
+    @Override
+    public int compareTo(Receipt o) {
+        int compareage=((Receipt)o).getZSZ();
+        return this.ZSZ-compareage;        
     }
     
     

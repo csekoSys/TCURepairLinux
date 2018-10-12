@@ -10,6 +10,8 @@ public class Device {
     private XmlReader xmlVersion;
     private XmlReader xmlType;
     private ArrayList<Integer> logfileFoldersList;
+    private ArrayList<Logfile> logfilesList;
+    private ArrayList<Receipt> receiptListFromLogfile;
 
     Device() {
     }
@@ -20,8 +22,6 @@ public class Device {
         this.xmlCasgreg = new XmlReader(this, Constants.CASHREG_SHARED_PREFS_PATH, "com.tekinvest.novatek.cashregister_preferences.xml");
         this.xmlVersion = new XmlReader(this, Constants.TEKI_PATH, "version.xml");
         this.xmlType = new XmlReader(this, Constants.TEKI_PATH, "type.xml");
-        this.logfileFoldersList = (ArrayList<Integer>) LogfilesProcessing.getLogFoldersList(this);
-
     }
 
     public String getAdbImsi() {
@@ -137,7 +137,7 @@ public class Device {
     public String getRepoImsi() {
         String result;
         result = xmlRepo.searchXmlAttributum("Imsi");
-        Status.setDeviceBasicDatas("IMSI",result);
+        Status.setDeviceBasicDatas("IMSI", result);
         return result;
     }
 
@@ -200,8 +200,31 @@ public class Device {
     }
 
     public int getLogfilesEndLogfolder() {
-        int result = logfileFoldersList.get(logfileFoldersList.size()-1);
+        int result = logfileFoldersList.get(logfileFoldersList.size() - 1);
         return result;
+    }
+
+    public ArrayList<Integer> getLogfileFoldersList() {
+        logfileFoldersList = (ArrayList<Integer>) LogfilesProcessing.getLogFoldersList(this);
+        return logfileFoldersList;
+    }
+
+    public void setLogfileFoldersList(ArrayList<Integer> logfileFoldersList) {
+        this.logfileFoldersList = logfileFoldersList;
+    }
+
+    public ArrayList<Logfile> getLogfilesList() {
+        logfilesList = (ArrayList<Logfile>) LogfilesProcessing.getLogfilesList(this);
+        return logfilesList;
+    }
+
+    public void setLogfileList(ArrayList<Logfile> logfileList) {
+        this.logfilesList = logfileList;
+    }
+
+    public ArrayList<Receipt> getReceiptFromLogfile() {
+        receiptListFromLogfile = (ArrayList<Receipt>) LogfilesProcessing.getReceiptsFromLogfilesList(this);
+        return receiptListFromLogfile;
     }
 
     public int getLogfilesFirstLogfile() {

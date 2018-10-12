@@ -1,6 +1,6 @@
 package csekosys.sum;
 
-public class Logfile {
+public class Logfile implements Comparable<Logfile> {
 
     private int fileSize;
     private String fileDate;
@@ -86,5 +86,10 @@ public class Logfile {
         this.timestamp = timestamp;
     }
 
-    
+    @Override
+    public int compareTo(Logfile o) {
+        int compareage = ((Logfile)o).getLogfileNumber();
+        return this.logfileNumber - compareage;
+    }
+
 }

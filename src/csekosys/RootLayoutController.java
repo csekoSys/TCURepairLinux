@@ -2,7 +2,7 @@ package csekosys;
 
 import csekosys.sum.AdbDevices;
 import csekosys.sum.Device;
-import csekosys.ui.device.DevicePaneController;
+import csekosys.device.DevicePaneController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -15,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
@@ -77,10 +76,10 @@ public class RootLayoutController implements Initializable {
                     System.out.println("\n.handle() DEVICE BOTTON press: " + imsi);
 
                     try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("ui/device/DevicePane.fxml"));
                         DevicePaneController controller = new DevicePaneController(imsi);
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("device/DevicePane.fxml"));
                         loader.setController(controller);
-                        BorderPane devicePane = loader.load();
+                         BorderPane devicePane = loader.load();
 
                         deviceTab = new Tab(imsi);
                         deviceTab.setContent(devicePane);
