@@ -12,6 +12,7 @@ public class Device {
     private ArrayList<Integer> logfileFoldersList;
     private ArrayList<Logfile> logfilesList;
     private ArrayList<Receipt> receiptListFromLogfile;
+    private ArrayList<Closing> closingListFromLogfile;
 
     Device() {
     }
@@ -227,9 +228,9 @@ public class Device {
         return receiptListFromLogfile;
     }
 
-    public int getLogfilesFirstLogfile() {
-        int result = 0;
-        return result;
+    public ArrayList<Closing> getClosingsFromLogfiles() {
+        closingListFromLogfile = (ArrayList<Closing>) LogfilesProcessing.getClosingFromLogfilesList(this);
+        return closingListFromLogfile;
     }
 
     public int getLogfilesEndLogfile() {

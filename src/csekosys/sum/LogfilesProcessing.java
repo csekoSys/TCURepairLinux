@@ -110,10 +110,7 @@ public class LogfilesProcessing {
 
             proc.waitFor();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (IOException | InterruptedException e) {
         }
         Collections.sort(list);
 
@@ -135,7 +132,7 @@ public class LogfilesProcessing {
         String CTS;
 
         ArrayList<Receipt> list = new ArrayList<>();
-        String cmd = d.getAdbCommand(" cat " + Constants.LOGS_PATH + "*/* |grep -a --text NYN");
+        String cmd = d.getAdbCommand(" cat " + Constants.LOGS_PATH + "*/* |grep -a --text \\<NYN\\>");
 
         try {
             Process proc = Runtime.getRuntime().exec(cmd);
@@ -144,30 +141,98 @@ public class LogfilesProcessing {
             String line;
             int lineNum = 0;
             while ((line = reader.readLine()) != null) {
+                System.out.println("\ncsekosys.sum.LogfilesProcessing.getReceiptsFromLogfilesList()" + line);
                 if (lineNum >= 0) {
                     int startNSZ = line.indexOf("<NSZ>");
                     int endNSZ = line.indexOf("</NSZ>");
+                    NSZ = line.substring(startNSZ + 5, endNSZ);
+                    System.out.println("csekosys.sum.LogfilesProcessing.getReceiptsFromLogfilesList() NSZ - start - end: " + NSZ + " - " + startNSZ + " - " + endNSZ);
+                    String[] parts = NSZ.split("/");
+                    ZSZ = parts[0];
+                    NYS = parts[1];
+                    System.out.println("csekosys.sum.LogfilesProcessing.getReceiptsFromLogfilesList() ZSZ - NYS: " + ZSZ + " - " + NYS);
 
                     int startSUM = line.indexOf("<SUM>");
                     int endSUM = line.indexOf("</SUM>");
+                    SUM = line.substring(startSUM + 5, endSUM);
+
+                    int startCNC = line.indexOf("<CNC>");
+                    int endCNC = line.indexOf("</CNC>");
+                    CNC = line.substring(startCNC + 5, endCNC);
+
+                    int startCTS = line.indexOf("<CTS>");
+                    int endCTS = line.indexOf("</CTS>");
+                    CTS = line.substring(startCTS + 5, endCTS);
+
+                    System.out.println("csekosys.sum.LogfilesProcessing.getReceiptsFromLogfilesList()" + line);
+
+                    list.add(new Receipt(NSZ, Integer.parseInt(ZSZ), Integer.parseInt(NYS), Integer.parseInt(SUM), Boolean.parseBoolean(CNC), CTS));
+
+                }
+                lineNum++;
+            }
+            proc.waitFor();
+
+        } catch (IOException e) {
+        } catch (InterruptedException e) {
+        } catch (NumberFormatException e) {
+        }
+
+        Collections.sort(list);
+
+        return list;
+    }
+
+    /**
+     * Logfájlból kinyeri a napizárások adatait
+     *
+     * @return
+     */
+    public static List<Closing> getClosingFromLogfilesList(Device d) {
+        String DTS = ""; // Időbélyeg, a bizonylat kiadásának pontos ideje az AEE órája szerint
+        String ZSZ = ""; // a zárás sorszáma négy karakteren, szükség esetén vezető nullákkal feltöltve
+        String NNS = ""; // a napi nyugták számalva
+        String NSF = ""; // a napi forgalom összesen, bruttó összegben, egész forintban számolva
+        String NSG = ""; // a göngyölített forgalom
+        String CNC = ""; // Bizonylat megszakítása esetén a megszakítás tényének jelzése
+
+        ArrayList<Closing> list = new ArrayList<>();
+        String cmd = d.getAdbCommand(" cat " + Constants.LOGS_PATH + "*/* |grep -a --text \\<NFN\\>");
+
+        try {
+            Process proc = Runtime.getRuntime().exec(cmd);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+
+            String line = "";
+            int lineNum = 0;
+            while ((line = reader.readLine()) != null) {
+                if (lineNum >= 0) {
+
+                    int startDTS = line.indexOf("<DTS>");
+                    int endDTS = line.indexOf("</DTS>");
+
+                    int startZSZ = line.indexOf("<ZSZ>");
+                    int endZSZ = line.indexOf("</ZSZ>");
+
+                    int startNSF = line.indexOf("<NSF>");
+                    int endNSF = line.indexOf("</NSF>");
+
+                    int startNDB = line.indexOf("<NDB>");
+                    int endNDB = line.indexOf("</NDB>");
+
+                    int startNSG = line.indexOf("<NSG>");
+                    int endNSG = line.indexOf("</NSG>");
 
                     int startCNC = line.indexOf("<CNC>");
                     int endCNC = line.indexOf("</CNC>");
 
-                    int startCTS = line.indexOf("<CTS>");
-                    int endCTS = line.indexOf("</CTS>");
-
-                    NSZ = line.substring(startNSZ + 5, endNSZ);
-
-                    String[] parts = NSZ.split("/");
-                    ZSZ = parts[0];
-                    NYS = parts[1];
-
-                    SUM = line.substring(startSUM + 5, endSUM);
+                    DTS = line.substring(startDTS + 5, endDTS);
+                    ZSZ = line.substring(startZSZ + 5, endZSZ);
+                    NSF = line.substring(startNSF + 5, endNSF);
+                    NSG = line.substring(startNSG + 5, endNSG);
                     CNC = line.substring(startCNC + 5, endCNC);
-                    CTS = line.substring(startCTS + 5, endCTS);
 
-                    list.add(new Receipt(NSZ, Integer.parseInt(ZSZ), Integer.parseInt(NYS), Integer.parseInt(SUM), Boolean.parseBoolean(CNC), CTS));
+                    list.add(new Closing(Integer.parseInt(ZSZ), Integer.parseInt(NSF), Integer.parseInt(NSG), Boolean.parseBoolean(CNC), DTS));
 
                 }
                 lineNum++;
@@ -176,11 +241,8 @@ public class LogfilesProcessing {
             proc.waitFor();
 
         } catch (IOException e) {
-            e.printStackTrace();
         } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NumberFormatException e) {
         }
 
         Collections.sort(list);
